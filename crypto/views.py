@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from drf_spectacular.utils import extend_schema
+from rest_framework import status
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
@@ -39,7 +40,7 @@ class WalletView(GenericAPIView):
             private_key=acct.key
         )
         response_serializer = self.get_serializer(wallet)
-        return Response(response_serializer.data)
+        return Response(response_serializer.data, status=status.HTTP_201_CREATED)
 
 
 class TransactionView(GenericAPIView):
